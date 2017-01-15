@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Spitter</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/resources/css/style.css}"></link>
+
+
+
+</head>
+<body>
+	<div id="header" th:include="page :: header"></div>
+	<h1>Spitter</h1>
+
+	<a th:href="@{/spittles}">Spittles</a> |
+	<a th:href="@{/spitter/register}">Register</a>
+	<div id="footer" th:include="page :: copy"></div>
+</body>
+</html>

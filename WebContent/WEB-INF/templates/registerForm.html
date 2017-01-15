@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Register Form</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{\resources\css\style.css}"></link>
+</head>
+<body>
+<div id="header" th:include="page :: header"></div>
+	<h1>Registration Form</h1>
+
+	<form method="POST" th:object="${user}">
+		<div class="errors" th:if="${#fields.hasErrors('*')}">
+			<ul>
+				<li th:each="err : ${#fields.errors('*')}" th:text="${err}">
+					Form`s data is invalid</li>
+			</ul>
+		</div>
+
+		<table>
+
+			<tr>
+				<td><label
+					th:class="${#fields.hasErrors('firstName')}? 'error'"> Name
+				</label></td>
+				<td><input type="text" th:field="*{firstName}"
+					th:class="${#fields.hasErrors('firstName')}? 'error'" /><br>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label
+					th:class="${#fields.hasErrors('firstName')}? 'error'"> Last
+						Name </label></td>
+
+				<td><input type="text" th:field="*{lastName}"
+					th:class="${#fields.hasErrors('lastName')}? 'error'" /><br></td>
+			</tr>
+
+
+			<tr>
+				<td><label th:class="${#fields.hasErrors('lastName')}? 'error'">
+						Login </label></td>
+				<td><input type="text" th:field="*{login}"
+					th:class="${#fields.hasErrors('login')}? 'error'" /><br></td>
+			</tr>
+
+
+			<tr>
+				<td><label th:class="${#fields.hasErrors('login')}? 'error'">
+						Email </label></td>
+				<td><input type="text" th:field="*{email}"
+					th:class="${#fields.hasErrors('email')}? 'error'" /><br></td>
+			</tr>
+
+
+			<tr>
+				<td><label th:class="${#fields.hasErrors('email')}? 'error'">
+						Password </label></td>
+				<td><input type="password" th:field="*{password}"
+					th:class="${#fields.hasErrors('password')}? 'error'" /><br></td>
+			</tr>
+
+			<tr>
+				<td><input type="submit" value="Register" /></td>
+			</tr>
+		</table>
+
+
+	</form>
+
+</body>
+</html>
