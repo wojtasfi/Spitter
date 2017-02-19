@@ -1,19 +1,17 @@
 package spittr.web;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import javax.servlet.ServletContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.ITemplateResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 /**
  * Thymeleaf and Spring MVC configuration.
@@ -21,36 +19,36 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan("spittr")
-public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
+public class WebConfig extends WebMvcConfigurerAdapter {
 
-    private static final String UTF8 = "UTF-8";
+	@Autowired
+	ServletContext context;
 
-    private ApplicationContext applicationContext;
+	@Bean(name = "templateResolver")
+	public ServletContextTemplateResolver getTemplateResolver() {
+		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(context);
+		templateResolver.setPrefix("/WEB-INF/templates/");
+		templateResolver.setSuffix(".html");
+		templateResolver.setTemplateMode("HTML5");
+		return templateResolver;
+	}
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
+	@Bean(name = "templateEngine")
+	public SpringTemplateEngine getTemplateEngine() {
+		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+		templateEngine.setTemplateResolver(getTemplateResolver());
+		return templateEngine;
+	}
 
-    @Bean
-    public ViewResolver viewResolver() {
-        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-        resolver.setTemplateEngine(templateEngine());
-        resolver.setCharacterEncoding(UTF8);
-        return resolver;
-    }
-
-    private TemplateEngine templateEngine() {
-        SpringTemplateEngine engine = new SpringTemplateEngine();
-        engine.setTemplateResolver(templateResolver());
-        return engine;
-    }
-
-    private ITemplateResolver templateResolver() {
-        SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-        resolver.setApplicationContext(applicationContext);
-        resolver.setPrefix("/WEB-INF/templates/");
-        resolver.setSuffix(".html");
-        resolver.setTemplateMode(TemplateMode.HTML);
-        return resolver;
-    }}
+	@Bean(name = "viewResolver")
+	public ThymeleafViewResolver getViewResolver() {
+		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+		viewResolver.setTemplateEngine(getTemplateEngine());
+		return viewResolver;
+	}
+	
+	@Override
+	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+	    registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+	}
+}

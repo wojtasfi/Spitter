@@ -4,11 +4,10 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Spittles</title>
-<link rel="stylesheet" type="text/css"
-	th:href="@{\resources\css\style.css}"></link>
+<link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}"></link>
 </head>
 <body>
-<div id="header" th:include="page :: header"></div>
+	<div id="header" th:include="page :: header"></div>
 	<a th:href="@{/homepage}">Home Page</a>
 	<div class="addSpittle">
 
@@ -29,17 +28,17 @@
 
 		<li th:each="spittle : ${spittleList}" th:id="${spittle.spittleId}">
 			<div class="spittleMessage" th:text="${spittle.message}"></div>
-			
+
 			<div>
-				<span class="spittleTime" th:text="${spittle.time}" /></span>
-				<span class="spittleLocation" 
-						th:text="'(' + ${spittle.latitude} + ', ' + ${spittle.longitude} + ')'">
+				<span class="spittleTime" th:text="${spittle.time}" /></span> <span
+					class="spittleLocation"
+					th:text="'(' + ${spittle.latitude} + ', ' + ${spittle.longitude} + ')'">
 				</span>
 			</div>
 			<div class="spittleButton">
 				<!--  <input type="button" onclick="/spittles/${spittle.spittleId}" value="Check out" /> -->
 				<a th:href="@{/spittles/} + ${spittle.spittleId}">Check out</a>
-					
+
 			</div>
 		</li>
 	</ul>

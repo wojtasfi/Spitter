@@ -3,16 +3,17 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}"></link>
 <title>Profile</title>
 </head>
 <body>
-<div id="header" th:include="page :: header"></div>
-<h1>Profile</h1>
+	<div id="header" th:include="page :: header"></div>
+	<h1>Profile</h1>
 
-<div class="login" th:text="${user.login}" ></div><
-<div class="firstName" th:text="${user.firstName}" ></div>
-<div class="lastName" th:text="${user.lastName}" ></div>
-<div class="email" th:text="${user.email}" ></div>
+	<div class="login" th:text="${user.login}"></div>
+	<div class="firstName" th:text="${user.firstName}"></div>
+	<div class="lastName" th:text="${user.lastName}"></div>
+	<div class="email" th:text="${user.email}"></div>
 
 </body>
 </html>

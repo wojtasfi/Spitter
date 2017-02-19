@@ -1,0 +1,26 @@
+.spittleTime {
+	font-size: 10px;
+	padding-left: 5px;
+}
+
+.spittleMessage {
+	font-size: 15px;
+	padding: 5px;
+}
+
+label.error {
+	color: red;
+}
+
+input.error {
+	background-color: #ffcccc;
+}
+
+div.errors {
+	background-color: #ffcccc;
+	color: red;
+}
+
+body {
+	text-align: center;
+}
