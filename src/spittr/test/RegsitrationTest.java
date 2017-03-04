@@ -26,7 +26,7 @@ public class RegsitrationTest {
 		
 		when(mockRepo.save(unsaved)).thenReturn(saved);
 		
-		SpitterController controller = new SpitterController(mockRepo);
+		SpitterController controller = new SpitterController();
 		
 		MockMvc mockMvc = standaloneSetup(controller).build();
 		

@@ -1,11 +1,15 @@
 package spittr.web;
 
+import java.io.IOException;
+
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -23,6 +27,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Autowired
 	ServletContext context;
+
+	@Bean
+	public MultipartResolver multipartResolver() throws IOException {
+		return new StandardServletMultipartResolver();
+	}
 
 	@Bean(name = "templateResolver")
 	public ServletContextTemplateResolver getTemplateResolver() {
@@ -46,9 +55,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setTemplateEngine(getTemplateEngine());
 		return viewResolver;
 	}
-	
+
 	@Override
 	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-	    registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
 }

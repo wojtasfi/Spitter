@@ -1,7 +1,6 @@
 package spittr.data;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -18,7 +17,7 @@ public class SpittleRepositoryImpl implements SpittleRepository {
 	}
 
 	@Override
-	public List<Spittle> findSpittle(long max, int count) {
+	public List<Spittle> findSpittles() {
 
 		/*
 		 * spittleList.add(new Spittle("Hello", new Date()));
@@ -40,10 +39,10 @@ public class SpittleRepositoryImpl implements SpittleRepository {
 	}
 
 	@Override
-	public void addSpittle(String message) {
+	public void addSpittle(Spittle spittle) {
 		// TODO Auto-generated method stub
 
-		Spittle spittle = new Spittle(message, new Date());
+		
 		spittleList.add(spittle);
 	}
 

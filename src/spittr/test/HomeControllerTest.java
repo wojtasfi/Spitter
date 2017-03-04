@@ -57,9 +57,9 @@ public class HomeControllerTest {
 		List<Spittle> expected = createSpittleList(20);
 
 		SpittleRepository mockRepo = mock(SpittleRepository.class);
-		when(mockRepo.findSpittle(238900, 50)).thenReturn(expected);
+		when(mockRepo.findSpittles()).thenReturn(expected);
 
-		SpittleController controller = new SpittleController(mockRepo);
+		SpittleController controller = new SpittleController();
 		MockMvc mockMvc = standaloneSetup(controller)
 				.setSingleView(new InternalResourceView("/WEB-INF/views/spittles.jsp")).build();
 
@@ -76,7 +76,7 @@ public class HomeControllerTest {
 		SpittleRepository mockRepo = mock(SpittleRepository.class);
 		when(mockRepo.findOne(12345)).thenReturn(spittle);
 		
-		SpittleController controller = new SpittleController(mockRepo);
+		SpittleController controller = new SpittleController();
 		MockMvc mockMvc = standaloneSetup(controller).build();
 		
 		mockMvc.perform(get("/spittles/12345"))

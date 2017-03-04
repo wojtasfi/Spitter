@@ -7,14 +7,9 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.Email;
 
-
 public class User {
 
 	private Long id;
-
-	@NotNull
-	@Size(min = 5, max = 16, message = "{username.size}")
-	private String username;
 
 	@NotNull
 	@Size(min = 5, max = 25, message = "{password.size}")
@@ -58,6 +53,7 @@ public class User {
 	public User() {
 	};
 
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -108,12 +104,12 @@ public class User {
 
 	@Override
 	public boolean equals(Object that) {
-		return EqualsBuilder.reflectionEquals(this, that, "firstName", "lastName", "username", "password", "email");
+		return EqualsBuilder.reflectionEquals(this, that, "firstName", "lastName", "login", "password", "email");
 	}
 
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, "firstName", "lastName", "username", "password", "email");
+		return HashCodeBuilder.reflectionHashCode(this, "firstName", "lastName", "login", "password", "email");
 	}
 
 }

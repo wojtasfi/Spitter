@@ -10,7 +10,7 @@
 	<div id="header" th:include="page :: header"></div>
 	<h1>Registration Form</h1>
 
-	<form method="POST" th:object="${user}">
+	<form method="POST" th:object="${userForm}" enctype="multipart/form-data">
 		<div class="errors" th:if="${#fields.hasErrors('*')}">
 			<ul>
 				<li th:each="err : ${#fields.errors('*')}" th:text="${err}">
@@ -30,9 +30,8 @@
 			</tr>
 
 			<tr>
-				<td><label
-					th:class="${#fields.hasErrors('lastName')}? 'error'"> Last
-						Name </label></td>
+				<td><label th:class="${#fields.hasErrors('lastName')}? 'error'">
+						Last Name </label></td>
 
 				<td><input type="text" th:field="*{lastName}"
 					th:class="${#fields.hasErrors('lastName')}? 'error'" /><br></td>
@@ -60,6 +59,13 @@
 						Password </label></td>
 				<td><input type="password" th:field="*{password}"
 					th:class="${#fields.hasErrors('password')}? 'error'" /><br></td>
+			</tr>
+
+			<tr>
+				<td><label>Profile Picture </label></td>
+				<td><input type="file" name="profilePicture"
+					accept="image/jpeg, image/png, image/gif" /><br></td>
+
 			</tr>
 
 			<tr>
