@@ -64,8 +64,8 @@ public class UserForm {
 		this.profilePicture = profilePicture;
 	}
 	
-	public User toUser() {
-		return new User(firstName, lastName, login, password, email);
+	public Spitter toSpitter() {
+		return new Spitter(firstName, lastName, login, password, email);
 	}
 
 

@@ -15,16 +15,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import spittr.data.SpittleRepository;
-import spittr.data.User;
+import spittr.data.Spitter;
 import spittr.data.UserForm;
+import spittr.data.SpitterRepository;
 
 @Controller
 @RequestMapping("/spitter")
 public class SpitterController {
 
+	
 	@Autowired
-	private SpittleRepository spittleRepository;
+	private SpitterRepository spitterRepository;
 
 	public SpitterController() {
 	}
@@ -43,30 +44,31 @@ public class SpitterController {
 			return "registerForm";
 		}
 
-		User user = userForm.toUser();
+		Spitter spitter = userForm.toSpitter();
 		try {
 
 			MultipartFile profilePicture = userForm.getProfilePicture();
 
-			profilePicture.transferTo(new File("C:\\Users\\wojci\\Desktop\\spittr\\tmp\\uploads\\" + user.getLogin()));
+			profilePicture.transferTo(new File("C:\\Users\\wojci\\Desktop\\spittr\\tmp\\uploads\\" + spitter.getLogin()));
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		spittleRepository.save(user);
+		spitterRepository.save(spitter);
 
-		model.addAttribute("login", user.getLogin());
-		model.addFlashAttribute("user", user);
+		model.addAttribute("login", spitter.getLogin());
+		model.addFlashAttribute("user", spitter);
 		return "redirect:/spitter/{login}";
 	}
 
 	@RequestMapping(value = "/{login}", method = RequestMethod.GET)
-	public String showProfile(@PathVariable("login") String login, Model model) {
+	public String showProfile(@PathVariable("username") String username, Model model) {
 
+		System.out.println(username);
 		if (!model.containsAttribute("user")) {
-			User user = spittleRepository.findUser(login);
-			model.addAttribute("user", user);
+			Spitter spitter = spitterRepository.findByUsername(username);
+			model.addAttribute("user", spitter);
 		}
 
 		return "user";

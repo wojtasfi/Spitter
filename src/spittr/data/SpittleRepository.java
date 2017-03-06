@@ -8,10 +8,5 @@ public interface SpittleRepository {
 
 	Object findOne(long spittleId);
 
-
-	Object save(User user);
-
-	User findUser(String login);
-
 	void addSpittle(Spittle spittle);
 }

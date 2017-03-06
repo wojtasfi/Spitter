@@ -11,18 +11,18 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 import org.junit.Test;
 import org.springframework.test.web.servlet.MockMvc;
 
-import spittr.data.SpittleRepository;
-import spittr.data.User;
+import spittr.data.Spitter;
+import spittr.data.SpitterRepository;
 import spittr.web.SpitterController;
 
 public class RegsitrationTest {
 	
 	@Test
 	public void register() throws Exception{
-		SpittleRepository mockRepo = mock(SpittleRepository.class);
+		SpitterRepository mockRepo = mock(SpitterRepository.class);
 		
-		User unsaved = new User("Wojtek", "Figas", "wfigas", "admin", "w@f.pl");
-		User saved = new User(24L, "Wojtek", "Figas", "wfigas", "admin", "w@f.pl");
+		Spitter unsaved = new Spitter("Wojtek", "Figas", "wfigas", "admin", "w@f.pl");
+		Spitter saved = new Spitter(24L, "Wojtek", "Figas", "wfigas", "admin", "w@f.pl");
 		
 		when(mockRepo.save(unsaved)).thenReturn(saved);
 		

@@ -10,13 +10,16 @@
 	<div id="header" th:include="page :: header"></div>
 	<h1>Registration Form</h1>
 
-	<form method="POST" th:object="${userForm}" enctype="multipart/form-data">
+	<form method="POST" th:object="${userForm}"
+		enctype="multipart/form-data" th:action="@{/spitter/register}">
+		
 		<div class="errors" th:if="${#fields.hasErrors('*')}">
 			<ul>
 				<li th:each="err : ${#fields.errors('*')}" th:text="${err}">
 					Form`s data is invalid</li>
 			</ul>
 		</div>
+
 
 		<table>
 

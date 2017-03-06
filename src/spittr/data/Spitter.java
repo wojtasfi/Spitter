@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.Email;
 
-public class User {
+public class Spitter {
 
 	private Long id;
 
@@ -31,7 +31,7 @@ public class User {
 	@Email(message = "{email.size}")
 	private String email;
 
-	public User(long id, String firstName, String lastName, String login, String password, String email) {
+	public Spitter(long id, String firstName, String lastName, String login, String password, String email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -41,7 +41,7 @@ public class User {
 		this.email = email;
 	}
 
-	public User(String firstName, String lastName, String login, String password, String email) {
+	public Spitter(String firstName, String lastName, String login, String password, String email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -50,7 +50,7 @@ public class User {
 		this.email = email;
 	}
 
-	public User() {
+	public Spitter() {
 	};
 
 	
