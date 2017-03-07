@@ -22,16 +22,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
 		auth.userDetailsService(new SpitterUserService(spitterRepository));
-		/*
-		auth
-	      .inMemoryAuthentication()
-	        .withUser("user").password("password").roles("SPITTER");*/
+		
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http
+		.rememberMe()
+			.tokenValiditySeconds(2419200)
+		.and()
 		.formLogin()
 			.loginPage("/login")
 		.and()

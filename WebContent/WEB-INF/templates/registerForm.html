@@ -11,8 +11,8 @@
 	<h1>Registration Form</h1>
 
 	<form method="POST" th:object="${userForm}"
-		enctype="multipart/form-data" th:action="@{/spitter/register}">
-		
+		th:action="@{/spitter/register}">
+
 		<div class="errors" th:if="${#fields.hasErrors('*')}">
 			<ul>
 				<li th:each="err : ${#fields.errors('*')}" th:text="${err}">
@@ -64,12 +64,6 @@
 					th:class="${#fields.hasErrors('password')}? 'error'" /><br></td>
 			</tr>
 
-			<tr>
-				<td><label>Profile Picture </label></td>
-				<td><input type="file" name="profilePicture"
-					accept="image/jpeg, image/png, image/gif" /><br></td>
-
-			</tr>
 
 			<tr>
 				<td><input type="submit" value="Register" /></td>
