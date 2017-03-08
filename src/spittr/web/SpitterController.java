@@ -1,8 +1,5 @@
 package spittr.web;
 
-import java.io.File;
-import java.io.IOException;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,23 +9,24 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import spittr.data.Spitter;
-import spittr.data.UserForm;
 import spittr.data.SpitterRepository;
+import spittr.data.UserForm;
 
 @Controller
 @RequestMapping("/spitter")
 public class SpitterController {
 
 	
-	@Autowired
+	
 	private SpitterRepository spitterRepository;
 
-	public SpitterController() {
-	}
+	@Autowired
+	  public SpitterController(SpitterRepository spitterRepository) {
+	    this.spitterRepository = spitterRepository;
+	  }
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String showRegistrationForm(Model model) {
@@ -45,15 +43,9 @@ public class SpitterController {
 		}
 
 		Spitter spitter = userForm.toSpitter();
-		try {
-
-			MultipartFile profilePicture = userForm.getProfilePicture();
-
-			profilePicture.transferTo(new File("C:\\Users\\wojci\\Desktop\\spittr\\tmp\\uploads\\" + spitter.getLogin()));
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
+		System.out.println("Nowy spitter:");
+		System.out.println(spitter);
 
 		spitterRepository.save(spitter);
 
@@ -63,9 +55,8 @@ public class SpitterController {
 	}
 
 	@RequestMapping(value = "/{login}", method = RequestMethod.GET)
-	public String showProfile(@PathVariable("username") String username, Model model) {
+	public String showProfile(@PathVariable("login") String username, Model model) {
 
-		System.out.println(username);
 		if (!model.containsAttribute("user")) {
 			Spitter spitter = spitterRepository.findByUsername(username);
 			model.addAttribute("user", spitter);

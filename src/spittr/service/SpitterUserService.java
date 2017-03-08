@@ -27,6 +27,7 @@ public class SpitterUserService implements UserDetailsService {
 
 		Spitter spitter = spitterRepository.findByUsername(username);
 
+		System.out.println(spitter);
 		if (spitter != null) {
 			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 

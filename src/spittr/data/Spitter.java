@@ -3,8 +3,6 @@ package spittr.data;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.Email;
 
 public class Spitter {
@@ -101,7 +99,7 @@ public class Spitter {
 	public void setId(long id) {
 		this.id = id;
 	}
-
+/*
 	@Override
 	public boolean equals(Object that) {
 		return EqualsBuilder.reflectionEquals(this, that, "firstName", "lastName", "login", "password", "email");
@@ -111,5 +109,5 @@ public class Spitter {
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this, "firstName", "lastName", "login", "password", "email");
 	}
-
+*/
 }

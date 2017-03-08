@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import spittr.data.SpitterRepository;
 import spittr.service.SpitterUserService;
@@ -33,7 +34,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.tokenValiditySeconds(2419200)
 		.and()
 		.formLogin()
+			
 			.loginPage("/login")
+		.and()
+		.logout()
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+			.logoutSuccessUrl("/")
 		.and()
 		.httpBasic()
 			.realmName("Spitter")
