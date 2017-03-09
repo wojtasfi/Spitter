@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import spittr.data.Spitter;
-import spittr.data.SpitterRepository;
 import spittr.data.UserForm;
+import spittr.persistance.SpitterRepository;
 
 @Controller
 @RequestMapping("/spitter")
@@ -49,7 +49,7 @@ public class SpitterController {
 
 		spitterRepository.save(spitter);
 
-		model.addAttribute("login", spitter.getLogin());
+		model.addAttribute("login", spitter.getUsername());
 		model.addFlashAttribute("user", spitter);
 		return "redirect:/spitter/{login}";
 	}

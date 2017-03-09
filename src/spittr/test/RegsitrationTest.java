@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.springframework.test.web.servlet.MockMvc;
 
 import spittr.data.Spitter;
-import spittr.data.SpitterRepository;
+import spittr.persistance.SpitterRepository;
 import spittr.web.SpitterController;
 
 public class RegsitrationTest {

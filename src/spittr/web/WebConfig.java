@@ -21,6 +21,8 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 /**
  * Thymeleaf and Spring MVC configuration.
  */
+
+
 @Configuration
 @EnableWebMvc
 @ComponentScan("spittr")
@@ -56,7 +58,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setTemplateEngine(getTemplateEngine());
 		return viewResolver;
 	}
-
+	
+	
 	@Override
 	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
@@ -66,4 +69,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	  public void addViewControllers(ViewControllerRegistry registry) {
 	    registry.addViewController("/login").setViewName("login");
 	  }
+	
+	
 }

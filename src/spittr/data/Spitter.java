@@ -1,12 +1,19 @@
 package spittr.data;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 
+@Entity
 public class Spitter {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotNull
@@ -23,27 +30,27 @@ public class Spitter {
 
 	@NotNull
 	@Size(min = 2, max = 6, message = "{login.size}")
-	private String login;
+	private String username;
 
 	@NotNull
 	@Email(message = "{email.size}")
 	private String email;
 
-	public Spitter(long id, String firstName, String lastName, String login, String password, String email) {
+	public Spitter(long id, String firstName, String lastName, String username, String password, String email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.login = login;
+		this.username = username;
 		this.password = password;
 		this.id = id;
 		this.email = email;
 	}
 
-	public Spitter(String firstName, String lastName, String login, String password, String email) {
+	public Spitter(String firstName, String lastName, String username, String password, String email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.login = login;
+		this.username = username;
 		this.password = password;
 		this.email = email;
 	}
@@ -51,7 +58,6 @@ public class Spitter {
 	public Spitter() {
 	};
 
-	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -76,12 +82,12 @@ public class Spitter {
 		this.lastName = lastName;
 	}
 
-	public String getLogin() {
-		return login;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -99,15 +105,13 @@ public class Spitter {
 	public void setId(long id) {
 		this.id = id;
 	}
-/*
-	@Override
-	public boolean equals(Object that) {
-		return EqualsBuilder.reflectionEquals(this, that, "firstName", "lastName", "login", "password", "email");
-	}
-
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, "firstName", "lastName", "login", "password", "email");
-	}
-*/
+	/*
+	 * @Override public boolean equals(Object that) { return
+	 * EqualsBuilder.reflectionEquals(this, that, "firstName", "lastName",
+	 * "login", "password", "email"); }
+	 * 
+	 * @Override public int hashCode() { return
+	 * HashCodeBuilder.reflectionHashCode(this, "firstName", "lastName",
+	 * "login", "password", "email"); }
+	 */
 }

@@ -18,7 +18,6 @@ public class RootConfig {
 		public WebPackage() {
 
 			super(Pattern.compile("spittr\\.web"));
-			System.out.println("rootconfig");
 		}
 	}
 }

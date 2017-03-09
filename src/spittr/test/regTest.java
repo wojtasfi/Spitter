@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 import org.junit.Test;
 import org.springframework.test.web.servlet.MockMvc;
 
-import spittr.data.SpitterRepository;
+import spittr.persistance.SpitterRepository;
 import spittr.web.SpitterController;
 
 public class regTest {

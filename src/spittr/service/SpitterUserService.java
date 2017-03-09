@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import spittr.data.Spitter;
-import spittr.data.SpitterRepository;
+import spittr.persistance.SpitterRepository;
 
 public class SpitterUserService implements UserDetailsService {
 
@@ -27,13 +27,12 @@ public class SpitterUserService implements UserDetailsService {
 
 		Spitter spitter = spitterRepository.findByUsername(username);
 
-		System.out.println(spitter);
 		if (spitter != null) {
 			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
 			authorities.add(new SimpleGrantedAuthority("ROLE_SPITTER"));
 
-			return new User(spitter.getLogin(), spitter.getPassword(), authorities);
+			return new User(spitter.getUsername(), spitter.getPassword(), authorities);
 
 		}
 
