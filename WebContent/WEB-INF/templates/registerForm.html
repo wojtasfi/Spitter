@@ -10,7 +10,7 @@
 	<div id="header" th:include="page :: header"></div>
 	<h1>Registration Form</h1>
 
-	<form method="POST" th:object="${userForm}"
+	<form method="POST" th:object="${spitter}"
 		th:action="@{/spitter/register}">
 
 		<div class="errors" th:if="${#fields.hasErrors('*')}">
@@ -42,10 +42,10 @@
 
 
 			<tr>
-				<td><label th:class="${#fields.hasErrors('login')}? 'error'">
+				<td><label th:class="${#fields.hasErrors('username')}? 'error'">
 						Login </label></td>
-				<td><input type="text" th:field="*{login}"
-					th:class="${#fields.hasErrors('login')}? 'error'" /><br></td>
+				<td><input type="text" th:field="*{username}"
+					th:class="${#fields.hasErrors('username')}? 'error'" /><br></td>
 			</tr>
 
 

@@ -27,12 +27,6 @@
 			<version>1.11.1.RELEASE</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.hsqldb/hsqldb -->
-		<dependency>
-			<groupId>org.hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>2.3.1</version>
-		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
 		<dependency>
@@ -115,6 +109,13 @@
 			<groupId>org.thymeleaf</groupId>
 			<artifactId>thymeleaf-spring4</artifactId>
 			<version>3.0.0.RELEASE</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>4.3.6.RELEASE</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->

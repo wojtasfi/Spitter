@@ -15,7 +15,8 @@ import spittr.persistance.SpitterRepository;
 
 public class SpitterUserService implements UserDetailsService {
 
-	private final SpitterRepository spitterRepository;
+	
+	private SpitterRepository spitterRepository;
 
 	public SpitterUserService(SpitterRepository spitterRepository) {
 

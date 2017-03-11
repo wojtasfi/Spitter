@@ -1,9 +1,11 @@
 package spittr.web;
 
-import java.util.Date;
+import java.sql.Time;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,30 +13,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import spittr.data.Spitter;
 import spittr.data.Spittle;
-import spittr.data.SpittleForm;
-import spittr.data.SpittleRepository;
+import spittr.persistance.SpitterRepository;
+import spittr.persistance.SpittleRepository;
 
 @Controller
 @RequestMapping("/spittles")
 public class SpittleController {
 
-	// private static final String MAX_LONG_AS_STRING =
-	// Long.toString(Long.MAX_VALUE);
 	@Autowired
 	private SpittleRepository spittleRepository;
 
-	/*
-	 * @RequestMapping(method=RequestMethod.GET) public String spittles(Model
-	 * model){ model.addAttribute("spittleList",
-	 * repo.findSpittle(Long.MAX_VALUE, 20)); return "spittles"; }
-	 */
+	@Autowired
+	private SpitterRepository spitterRepository;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Spittle> spittles(@RequestParam(value = "max", defaultValue = "238900") long max,
-			@RequestParam(value = "count", defaultValue = "20") int count) {
+	public String spittles(Model model) {
 
-		return spittleRepository.findSpittles();
+		List<Spittle> spittleList = spittleRepository.findAll();
+
+		model.addAttribute("spittleList", spittleList);
+
+		return "spittles";
 
 	}
 
@@ -62,15 +63,22 @@ public class SpittleController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String addSpittle(SpittleForm spittleForm, Model model) {
+	public String addSpittle(Spittle spittle, Model model) {
 
-		spittleRepository.addSpittle(new Spittle(spittleForm.getMessage(), new Date(), spittleForm.getLongitude(),
-				spittleForm.getLatitude()));
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String spitterUsername = user.getUsername();
+
+		Spitter spitter = spitterRepository.findByUsername(spitterUsername);
+		spittle.setSpitter(spitter);
+		spittle.setSpitterUsername(spitter.getUsername());
+		spittle.setTime(new Time(System.currentTimeMillis()));
+		spittle.setLatitude(0.0);
+		spittle.setLongitude(0.0);
+
+		spittleRepository.save(spittle);
 
 		return "redirect:/spittles";
 
 	}
-
-	
 
 }

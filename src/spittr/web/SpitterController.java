@@ -12,40 +12,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import spittr.data.Spitter;
-import spittr.data.UserForm;
 import spittr.persistance.SpitterRepository;
 
 @Controller
 @RequestMapping("/spitter")
 public class SpitterController {
 
-	
-	
-	private SpitterRepository spitterRepository;
-
 	@Autowired
-	  public SpitterController(SpitterRepository spitterRepository) {
-	    this.spitterRepository = spitterRepository;
-	  }
+	private SpitterRepository spitterRepository;
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String showRegistrationForm(Model model) {
-		UserForm userForm = new UserForm();
-		model.addAttribute("userForm", userForm);
+		Spitter spitter = new Spitter();
+		model.addAttribute("spitter", spitter);
 		return "registerForm";
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerNewUser(@Valid UserForm userForm, Errors errors, RedirectAttributes model) {
+	public String registerNewUser(@Valid Spitter spitter, Errors errors, RedirectAttributes model) {
 
 		if (errors.hasErrors()) {
 			return "registerForm";
 		}
-
-		Spitter spitter = userForm.toSpitter();
-		
-		System.out.println("Nowy spitter:");
-		System.out.println(spitter);
 
 		spitterRepository.save(spitter);
 

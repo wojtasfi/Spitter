@@ -8,6 +8,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.web.multipart.MultipartFile;
 
+//Not used for now
 public class UserForm {
 
 	private Long id;
@@ -28,27 +29,27 @@ public class UserForm {
 
 	@NotNull
 	@Size(min = 2, max = 6, message = "{login.size}")
-	private String login;
+	private String username;
 
 	@NotNull
 	@Email(message = "{email.size}")
 	private String email;
 
-	public UserForm(long id, String firstName, String lastName, String login, String password, String email) {
+	public UserForm(long id, String firstName, String lastName, String username, String password, String email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.login = login;
+		this.username = username;
 		this.password = password;
 		this.id = id;
 		this.email = email;
 	}
 
-	public UserForm(String firstName, String lastName, String login, String password, String email) {
+	public UserForm(String firstName, String lastName, String username, String password, String email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.login = login;
+		this.username = username;
 		this.password = password;
 		this.email = email;
 	}
@@ -65,7 +66,13 @@ public class UserForm {
 	}
 	
 	public Spitter toSpitter() {
-		return new Spitter(firstName, lastName, login, password, email);
+		Spitter spitter = new Spitter();
+		spitter.setEmail(email);
+		spitter.setFirstName(firstName);
+		spitter.setLastName(lastName);
+		spitter.setPassword(password);
+		spitter.setUsername(username);
+		return spitter;
 	}
 
 
@@ -94,11 +101,11 @@ public class UserForm {
 	}
 
 	public String getLogin() {
-		return login;
+		return username;
 	}
 
 	public void setLogin(String login) {
-		this.login = login;
+		this.username = login;
 	}
 
 	public String getPassword() {

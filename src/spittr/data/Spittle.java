@@ -7,38 +7,47 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Spittle {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private final Long spittleId;
-	
-	@NotNull
-	private final String message;
-	private final Date time;
-	private Double longitude;
-	private Double latitude;
-	private static long counter=0;
+	private Long spittleId;
 
-	public Spittle(String message, Date time) {
-		this(message, time, null, null);
-		
-		 
-		
+	@NotNull
+	private String message;
+
+	@DateTimeFormat
+	@NotNull
+	private Date time;
+
+	@NotNull
+	private Double longitude;
+
+	@NotNull
+	private Double latitude;
+
+	@ManyToOne
+	@JoinColumn(name = "spitter_id", insertable = false, updatable = false)
+	private Spitter spitter;
+
+	private String spitterUsername;
+
+	public Spittle() {
 	}
 
-	public Spittle(String message, Date time, Double latitude, Double longitude) {
-		this.spittleId = counter;
-		this.message = message;
-		this.time = time;
-		this.latitude = latitude;
-		this.longitude = longitude;
-		counter++;
-	
+	public Spitter getSpitter() {
+		return spitter;
+	}
 
+	public void setSpitter(Spitter spitter) {
+		this.spitter = spitter;
 	}
 
 	public String getMessage() {
@@ -57,9 +66,35 @@ public class Spittle {
 		return latitude;
 	}
 
-	
-
 	public Long getSpittleId() {
 		return spittleId;
+	}
+
+	public void setSpittleId(Long spittleId) {
+		this.spittleId = spittleId;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public void setTime(Date time) {
+		this.time = time;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getSpitterUsername() {
+		return spitterUsername;
+	}
+
+	public void setSpitterUsername(String spitterUsername) {
+		this.spitterUsername = spitterUsername;
 	}
 }

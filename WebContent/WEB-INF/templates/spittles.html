@@ -12,7 +12,7 @@
 	<div class="addSpittle">
 
 		<h1>Add spittle</h1>
-		<form method=POST name="spittleForm" th:object="${spittleForm}"
+		<form method=POST name="spittleForm" th:object="${spittle}"
 			th:action="@{/spittles}">
 			<input type="hidden" th:name="${_csrf.parameterName}"
 				th:value="${_csrf.token}" />
@@ -33,6 +33,7 @@
 			<div class="spittleMessage" th:text="${spittle.message}"></div>
 
 			<div>
+
 				<span class="spittleTime" th:text="${spittle.time}" /></span> <span
 					class="spittleLocation"
 					th:text="'(' + ${spittle.latitude} + ', ' + ${spittle.longitude} + ')'">

@@ -1,22 +1,7 @@
 package spittr.test;
 
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
-
-import org.junit.Test;
-import org.springframework.test.web.servlet.MockMvc;
-
-import spittr.data.Spitter;
-import spittr.persistance.SpitterRepository;
-import spittr.web.SpitterController;
-
 public class RegsitrationTest {
-	
+	/*
 	@Test
 	public void register() throws Exception{
 		SpitterRepository mockRepo = mock(SpitterRepository.class);
@@ -38,5 +23,5 @@ public class RegsitrationTest {
 			.andExpect(redirectedUrl("/spitter/wfigas"));
 		verify(mockRepo, atLeastOnce()).save(unsaved);
 	}
-
+*/
 }
