@@ -1,5 +1,6 @@
-package spittr.data;
+package spittr.entity;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -7,14 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class Spittle {
+public class Spittle implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,9 +35,8 @@ public class Spittle {
 	@NotNull
 	private Double latitude;
 
-	@ManyToOne
-	@JoinColumn(name = "spitter_id", insertable = false, updatable = false)
-	private Spitter spitter;
+	@ManyToOne()
+	Spitter spitter;
 
 	private String spitterUsername;
 

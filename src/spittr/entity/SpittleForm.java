@@ -1,4 +1,4 @@
-package spittr.data;
+package spittr.entity;
 
 import org.springframework.web.multipart.MultipartFile;
 

@@ -1,4 +1,4 @@
-package spittr.web;
+package spittr.controller;
 
 import javax.validation.Valid;
 
@@ -11,15 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import spittr.data.Spitter;
-import spittr.persistance.SpitterRepository;
+import spittr.entity.Spitter;
+import spittr.service.SpitterService;
 
 @Controller
 @RequestMapping("/spitter")
 public class SpitterController {
 
+	
 	@Autowired
-	private SpitterRepository spitterRepository;
+	private SpitterService spitterService;
+	
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String showRegistrationForm(Model model) {
@@ -34,8 +36,9 @@ public class SpitterController {
 		if (errors.hasErrors()) {
 			return "registerForm";
 		}
+		System.out.println(spitter.getId());
 
-		spitterRepository.save(spitter);
+		spitterService.saveSpitter(spitter);
 
 		model.addAttribute("login", spitter.getUsername());
 		model.addFlashAttribute("user", spitter);
@@ -46,7 +49,7 @@ public class SpitterController {
 	public String showProfile(@PathVariable("login") String username, Model model) {
 
 		if (!model.containsAttribute("user")) {
-			Spitter spitter = spitterRepository.findByUsername(username);
+			Spitter spitter = spitterService.findByUsername(username);
 			model.addAttribute("user", spitter);
 		}
 

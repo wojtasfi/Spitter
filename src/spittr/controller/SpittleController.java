@@ -1,4 +1,4 @@
-package spittr.web;
+package spittr.controller;
 
 import java.sql.Time;
 import java.util.List;
@@ -13,25 +13,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import spittr.data.Spitter;
-import spittr.data.Spittle;
-import spittr.persistance.SpitterRepository;
-import spittr.persistance.SpittleRepository;
+import spittr.entity.Spitter;
+import spittr.entity.Spittle;
+import spittr.service.SpitterService;
+import spittr.web.SpittleNotFoundException;
 
 @Controller
 @RequestMapping("/spittles")
 public class SpittleController {
 
-	@Autowired
-	private SpittleRepository spittleRepository;
+	private SpitterService spitterService;
 
 	@Autowired
-	private SpitterRepository spitterRepository;
+	public SpittleController(SpitterService spitterService) {
+
+		this.spitterService = spitterService;
+		
+		}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String spittles(Model model) {
 
-		List<Spittle> spittleList = spittleRepository.findAll();
+		List<Spittle> spittleList = spitterService.findAllSpittles();
 
 		model.addAttribute("spittleList", spittleList);
 
@@ -39,10 +42,11 @@ public class SpittleController {
 
 	}
 
+	
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public String showSpittle(@RequestParam("spittle_id") long spittleId, Model model) {
 
-		model.addAttribute(spittleRepository.findOne(spittleId));
+		model.addAttribute(spitterService.findSpittleById(spittleId));
 
 		return "spittle";
 
@@ -51,10 +55,10 @@ public class SpittleController {
 	@RequestMapping(value = "/{spittleId}", method = RequestMethod.GET)
 	public String spittle(@PathVariable("spittleId") long spittleId, Model model) {
 
-		Spittle spittle = (Spittle) spittleRepository.findOne(spittleId);
+		Spittle spittle = (Spittle) spitterService.findSpittleById(spittleId);
 
 		if (spittle == null) {
-			throw new SpittleNotFoundException();
+			throw new SpittleNotFoundException(spittleId);
 		}
 		model.addAttribute(spittle);
 
@@ -67,18 +71,22 @@ public class SpittleController {
 
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String spitterUsername = user.getUsername();
-
-		Spitter spitter = spitterRepository.findByUsername(spitterUsername);
+		Spitter spitter = spitterService.findByUsername(spitterUsername);
 		spittle.setSpitter(spitter);
 		spittle.setSpitterUsername(spitter.getUsername());
+
 		spittle.setTime(new Time(System.currentTimeMillis()));
 		spittle.setLatitude(0.0);
 		spittle.setLongitude(0.0);
 
-		spittleRepository.save(spittle);
+		spitter.addSpittle(spittle);
+		spitterService.saveSpittle(spittle);
+		spitterService.saveSpitter(spitter);
 
 		return "redirect:/spittles";
 
 	}
+	
+	
 
 }

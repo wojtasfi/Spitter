@@ -23,40 +23,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
 		auth.userDetailsService(new SpitterUserService(spitterRepository));
-		
+
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http
-		.rememberMe()
-			.tokenValiditySeconds(2419200)
-		.and()
-		.formLogin()
-			
-			.loginPage("/login")
-		.and()
-		.logout()
-			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			.logoutSuccessUrl("/")
-		.and()
-		.httpBasic()
-			.realmName("Spitter")
-		.and()
-			.authorizeRequests()
-				.antMatchers("/spitter/me").authenticated()
-				.antMatchers(HttpMethod.POST, "/spittles").hasRole("SPITTER")
-				.anyRequest().permitAll()
+		http.csrf().disable()
+		.rememberMe().tokenValiditySeconds(2419200).and().formLogin()
+
+				.loginPage("/login").and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/").and().httpBasic().realmName("Spitter").and().authorizeRequests()
+				.antMatchers("/spitter/me").authenticated().antMatchers(HttpMethod.POST, "/spittles").hasRole("SPITTER")
+				.anyRequest().permitAll().and()
 				
-			.and().requiresChannel()
-				.antMatchers("spitter/register").requiresSecure()
-				.antMatchers("/").requiresInsecure();
-		
-				
+				.requiresChannel().antMatchers("spitter/register").requiresSecure().antMatchers("/")
+				.requiresInsecure();
 
 	}
-	
-	
 
 }

@@ -1,5 +1,6 @@
-package spittr.data;
+package spittr.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,19 +9,19 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 
 @Entity
-public class Spitter {
+public class Spitter implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@NotNull
@@ -43,13 +44,19 @@ public class Spitter {
 	@Email(message = "{email.size}")
 	private String email;
 
-	@OneToMany(fetch = FetchType.EAGER)
-	@OrderColumn
-	@JoinColumn(name = "spittle_spittleid")
+	@OneToMany(mappedBy = "spitter", fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<Spittle> spittles = new HashSet<>();
 
 	public Spitter() {
 	};
+
+	public Set<Spittle> getSpittles() {
+		return spittles;
+	}
+
+	public void setSpittles(Set<Spittle> spittles) {
+		this.spittles = spittles;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -97,6 +104,11 @@ public class Spitter {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public void addSpittle(Spittle spittle) {
+		spittles.add(spittle);
+
 	}
 
 }

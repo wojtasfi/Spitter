@@ -34,7 +34,7 @@ public class JpaConfiguration {
 
 	    LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 	    factory.setJpaVendorAdapter(vendorAdapter);
-	    factory.setPackagesToScan("spittr.data");
+	    factory.setPackagesToScan("spittr.entity");
 	    factory.setDataSource(dataSource());
 	    factory.afterPropertiesSet();
 

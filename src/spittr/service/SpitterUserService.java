@@ -10,13 +10,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import spittr.data.Spitter;
+import spittr.entity.Spitter;
 import spittr.persistance.SpitterRepository;
 
 public class SpitterUserService implements UserDetailsService {
 
 	
-	private SpitterRepository spitterRepository;
+	private final SpitterRepository spitterRepository;
 
 	public SpitterUserService(SpitterRepository spitterRepository) {
 
